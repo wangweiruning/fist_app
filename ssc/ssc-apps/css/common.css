@@ -1,0 +1,126 @@
+/* Copyright 2017 TSXMLOVE. All Rights Reserved. */
+* {
+padding: 0px;
+margin: 0px;
+font-family:Arial, Verdana, Tahoma, "微软雅黑", Helvetica, sans-serif;
+text-decoration: none;
+}
+body {
+font-size: 1rem;
+text-align: center;
+color: #000000;
+background-color: #fff;
+/*background-image: url(../Images/body_bg.jpg);*/
+background-repeat: repeat-x;
+}
+table {
+border-collapse: collapse;
+}
+td {
+padding: 0px;
+}
+img {
+border: none;
+}
+input {
+padding: 1px;
+vertical-align: middle;
+line-height: normal;
+float: left;
+}
+.main-box {
+margin-right: auto;
+margin-left: auto;
+clear: both;
+zoom:1;
+overflow:hidden;
+background-color: #CCCCCC;
+}
+.text-overflow-hidden {
+white-space: nowrap;
+word-spacing: normal;
+letter-spacing: normal;
+overflow: hidden;
+}
+.box-align-center {
+margin-right: auto;
+margin-left: auto;
+}
+/*css定义超链接四个状态也有顺序的。*/
+a:link, a:visited {
+-webkit-tap-highlight-color: transparent;
+}
+a:hover, a:active {
+-webkit-tap-highlight-color: transparent;
+}
+/*以上语句分别定义了"链接、已访问过的链接、鼠标停在上方时、点下鼠标时"的样式。
+注意，必须按以上顺序写，否则显示可能和你预想的不一样。记住它们的顺序是“LVHA”。*/
+ul {
+clear:both;
+overflow:hidden;
+width: 100%;
+}
+ul, li {
+list-style:none;
+}
+.valign {
+display:table-cell;
+*display: inline;
+zoom:1;
+vertical-align:middle;
+}
+.text{word-wrap:break-word;overflow:hidden;word-break:break-all;}
+/*======================CSS垂直居中=======================*/
+/*以下样式针对IE*/
+.edge {
+width:0;
+height:100%;
+display:inline-block;
+vertical-align:middle;
+}
+.container {
+vertical-align:middle;
+display:inline-block;
+}
+/*===============================================*/
+/*CSS Hack*/
+.class {
+background-color:#FFFF00;/*所有浏览器*/
+*background-color:#00FF00;/*IE*/
+_background-color:#00FFFF;/*IE6*/
+}
+/*======万能Float闭合======*/
+.clear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+.clear {display: inline-block;} /* for IE/Mac */
+/*<!-- main stylesheet ends, CC with new stylesheet below... -->*/
+.clear {
+    zoom: 1;     /* triggers hasLayout */
+    display: block;     /* resets display for IE/Win */
+    } /* Only IE can see inside the conditional comment
+    and read this CSS rule. Don't ever use a normal HTML
+    comment inside the CC or it will close prematurely. */
+/*======万能Float闭合2======*/
+.overflow-hidden{overflow:hidden;}         /*控制背景溢出*/
+.equal-height{margin-bottom:-32800px;padding-bottom:32800px;}      /*控制高度足够小*/
+/*======万能Float闭合3======*/
+.clear 
+{
+ height:0px;
+ clear:both;
+ font-size:0px;
+ line-height:0px;
+ zoom: 1;
+}
+#caizhongjiekou{
+    z-index: 666;
+}
+
+/
+
+

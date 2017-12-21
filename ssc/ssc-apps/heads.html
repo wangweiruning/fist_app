@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#views{
+				width:100%;
+			}
+			#views li{
+				width:100%;
+				height:3rem;
+				line-height: 3rem;
+				color: #c14c21;
+				font-weight: bold;
+			}
+			#views li span{
+				width:33%;
+				display: inline-block;
+				float: left;
+				height: 100%;
+				text-align: center;
+			}
+			#views li:nth-child(even){
+				background:#dcc4a1;
+			}
+			.list_img{
+				margin:0 auto;
+				width:50%;
+				text-indent: 1rem;
+				background-size: 40% 50%;
+			}
+			#views li span p.list_img_one{
+				background: url(img/guan.png)no-repeat center left;		
+				background-size: 40% 50%;		
+			}
+			#views li span p.list_img_two{
+				background: url(img/ya.png)no-repeat center left;		
+				background-size: 40% 50%;		
+			}
+			#views li span p.list_img_three{
+				background: url(img/ji.png)no-repeat center left;	
+				background-size: 40% 50%;			
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #e08d13;z-index: 999;">
+		    <h1 class="mui-title" style="color:#FFFFFF">点击率排行榜</h1>
+		</header>
+		
+		
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+			<!--数据列表-->
+				<ul class="mui-table-view mui-table-view-chevron" id="views">
+				</ul>
+			</div>
+		</div>
+		
+		
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			function plusReady(){
+				plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
+					plus.navigator.setStatusBarBackground('#e08d13');
+				}
+				if(window.plus){
+					plusReady();
+				}else{
+					document.addEventListener('plusready', plusReady, true);
+				}
+			mui.init({tatusBarBackground: '#e08d13',
+						pullRefresh : {
+						    container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+						    down : {
+						      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+						      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+						      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+						      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+						      offset:'50px', //可选 默认0px,下拉刷新控件的起始位置
+						      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+						      callback :pullfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+						    }
+				  		}
+				});
+
+		function pullfresh() {  
+				//业务逻辑代码，比如通过ajax从服务器获取新数据；
+				
+			    $.ajax({
+			    url:'data/is.json',
+			    type: 'get',
+                dataType: 'json',
+                contentType:"application/json",
+	            async:true,
+			    success: function(data) {
+			        //服务器返回响应，根据响应结果，分析是否登录成功； 
+			        
+			        var data = data.willSort;
+			        console.log(data)
+			        
+/*
+    @function     JsonSort 对json排序
+    @param        json     用来排序的json
+    @param        key      排序的键值
+*/
+					function JsonSort(json,key){
+					    //console.log(json);
+					    for(var j=1,jl=json.length;j < jl;j++){
+					        var temp = json[j],
+					            val  = temp[key],
+					            i    = j-1;
+					        while(i >=0 && json[i][key]<val){
+					            json[i+1] = json[i];
+					            i = i-1;    
+					        }
+					        json[i+1] = temp;
+					        
+					    }
+					    return json;
+					}
+					var json = JsonSort(data,'height');
+					//  data： json数据  ，height : key键名
+					console.log(json);
+					
+					
+					
+					
+					$("#views").empty();//清空 ul 里的默认数据(如果默认存在数据)
+					var html="";
+			        $.map(json, function(item,index) {
+			        	
+			        	html+='<li>'+
+			        	'<span><p class="list_img">'+(index+1)+
+			        	'</p></span><span>'+item.name+
+			        	'</span><span>'+item.height+
+			        	'</span></li>';
+			        });
+			        $("#views").append(html);
+			        
+			        $(".list_img").eq(0).addClass("list_img_one");
+			        $(".list_img").eq(1).addClass("list_img_two");
+			        $(".list_img").eq(2).addClass("list_img_three");
+			        mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+			    },
+			    error: function(xhr, type, errorThrown) {
+			        mui.alert('服务器连接超时，请稍后再试');
+			    }
+			})
+	}
+				
+			
+		</script>
+	</body>
+
+</html>

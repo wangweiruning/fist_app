@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			#title{
+				/*color: #6d6d72;*/
+				font-size: 15px;
+				background: #f51717;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="title">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="logins" class="mui-navigate-right">
+						登录注册
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a id="about" class="mui-navigate-right">
+						关于mui
+					</a>
+				</li>
+				<li class="mui-table-view-cell infoName">
+				    <a id="headImage"  href="#"><img id="headimg" /><span style="width:60px;line-height:60px;height:60px;display: inline-block;float: left;">头像</span></a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a style="text-align: center;color: #FF3B30;" onclick="closeApp()">
+						退出登录
+					</a>
+				</li>
+			</ul>
+		</div>
+		</style>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		 	var file_url;
+            var timestamp;
+            var dataBase64;
+
+		
+		mui.init({
+			tatusBarBackground: 'red'
+		});
+		mui.plusReady(function () {
+		   
+		/*点击头像触发*/ 
+        document.getElementById('headImage').addEventListener('tap', function() { 
+            if (mui.os.plus) { 
+                var a = [{ 
+                    title: "拍照" 
+                }, { 
+                    title: "从手机相册选择" 
+                }]; 
+                plus.nativeUI.actionSheet({ 
+                    title: "修改用户头像", 
+                    cancel: "取消", 
+                    buttons: a 
+                }, function(b) { /*actionSheet 按钮点击事件*/ 
+                    switch (b.index) { 
+                        case 0: 
+                            break; 
+                        case 1: 
+                            getImage(); /*拍照*/ 
+                            break; 
+                        case 2: 
+                            galleryImg();/*打开相册*/ 
+                            break; 
+                        default: 
+                            break; 
+                    } 
+                }) 
+            } 
+        }, false); 
+        
+		//拍照 
+        function getImage() { 
+            var c = plus.camera.getCamera(); 
+            c.captureImage(function(e) { 
+                plus.io.resolveLocalFileSystemURL(e, function(entry) { 
+                    var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
+                    uploadHead(s); /*上传图片*/ 
+                }, function(e) { 
+                    console.log("读取拍照文件错误：" + e.message); 
+                }); 
+            }, function(s) { 
+                console.log("error" + s); 
+            }, { 
+                filename: "_doc/head.png" 
+            }) 
+        } 
+		
+		//本地相册选择 
+        function galleryImg() { 
+            plus.gallery.pick(function(a) { 
+                plus.io.resolveLocalFileSystemURL(a, function(entry) { 
+                    plus.io.resolveLocalFileSystemURL("_doc/", function(root) { 
+                        root.getFile("head.png", {}, function(file) { 
+                            //文件已存在 
+                            file.remove(function() { 
+                                console.log("file remove success"); 
+                                entry.copyTo(root, 'head.png', function(e) { 
+                                        var e = e.fullPath + "?version=" + new Date().getTime(); 
+                                        uploadHead(e); /*上传图片*/ 
+                                        //变更大图预览的src 
+                                        //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+                                    }, 
+                                    function(e) { 
+                                        console.log('copy image fail:' + e.message); 
+                                    }); 
+                            }, function() { 
+                                console.log("delete image fail:" + e.message); 
+                            }); 
+                        }, function() { 
+                            //文件不存在 
+                            entry.copyTo(root, 'head.png', function(e) { 
+                                    var path = e.fullPath + "?version=" + new Date().getTime(); 
+                                    uploadHead(path); /*上传图片*/ 
+                                }, 
+                                function(e) { 
+                                    console.log('copy image fail:' + e.message); 
+                                }); 
+                        }); 
+                    }, function(e) { 
+                        console.log("get _www folder fail"); 
+                    }) 
+                }, function(e) { 
+                    console.log("读取拍照文件错误：" + e.message); 
+                }); 
+            }, function(a) {}, { 
+                filter: "image" 
+            }) 
+        }; 
+        //上传头像图片 
+        function uploadHead(imgPath) { 
+//          console.log("imgPath = " + imgPath); 
+//          mainImage.src = imgPath; 
+			var mainImage= document.getElementById("headimg");
+            mainImage.style.width = "60px"; 
+            mainImage.style.height = "60px"; 
+            mainImage.style.borderRadius="50%";
+　　　　			mainImage.src = imgPath;
+
+  				console.log("imgPath = " + imgPath); 
+            var image = new Image(); 
+            image.src = imgPath; 
+            image.onload = function() { 
+                var imgData = getBase64Image(image); 
+                /*在这里调用上传接口*/ 
+//              mui.ajax("图片上传接口", { 
+//                  data: { 
+//                       
+//                  }, 
+//                  dataType: 'json', 
+//                  type: 'post', 
+//                  timeout: 10000, 
+//                  success: function(data) { 
+//                      console.log('上传成功'); 
+//                  }, 
+//                  error: function(xhr, type, errorThrown) { 
+//                      mui.toast('网络异常，请稍后再试！'); 
+//                  } 
+//              }); 
+            } 
+    } 
+        //将图片压缩转成base64 
+        function getBase64Image(img) { 
+            var canvas = document.createElement("canvas"); 
+            var width = img.width; 
+            var height = img.height; 
+            // calculate the width and height, constraining the proportions 
+            if (width > height) { 
+                if (width > 100) { 
+                    height = Math.round(height *= 100 / width); 
+                    width = 100; 
+                } 
+            } else { 
+                if (height > 100) { 
+                    width = Math.round(width *= 100 / height); 
+                    height = 100; 
+                } 
+            } 
+            canvas.width = width;   /*设置新的图片的宽度*/ 
+            canvas.height = height; /*设置新的图片的长度*/ 
+            var ctx = canvas.getContext("2d"); 
+            ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
+            var dataURL = canvas.toDataURL("image/png", 0.8); 
+            return dataURL.replace("data:image/png;base64,", ""); 
+        }    
+		
+		document.getElementById("about").addEventListener('tap',function () {
+			//获得主页面的webview
+			//var main = plus.webview.currentWebview().parent();
+			//触发主页面的gohome事件
+			//mui.fire(main,'gohome');
+				mui.openWindow({
+					url:"tab-webview-subpage-chat.html",
+					id: "subpage",
+				    styles: {
+			        top:0, //新页面顶部位置
+			        bottom:0 //新页面底部位置
+			    			},
+					preload: false,
+					show: {
+						autoShow:true,
+						aniShow: 'pop-in',
+					}
+					});
+		})
+		document.getElementById("logins").addEventListener('tap',function () {
+			mui.openWindow({
+			    url:"login.html",
+			    id: "login",
+			    styles: {
+		        top:0, //新页面顶部位置
+		        bottom:0, //新页面底部位置
+		    },
+		    show: {
+		        autoShow: true, //页面loaded事件发生后自动显示，默认为true
+		    },
+		    waiting: {
+		        autoShow: true, //自动显示等待框，默认为true
+		        title: '正在加载...' //等待对话框上显示的提示内容
+		      
+		    }
+		})
+		})
+		});
+		function closeApp() {
+            plus.nativeUI.actionSheet({
+                cancel: "取消",
+                buttons: [{
+                    title: "注销当前账号"
+                }, {
+                    title: "直接关闭应用"
+                }]
+            }, function(e) {
+                var index = e.index;
+                switch (index) { //case 0: 取消
+                    case 1: //
+                        localStorage.clear();
+                        plus.runtime.restart();
+                        break;
+                    case 2: //
+                        plus.runtime.quit();
+                        break;
+                }
+            });
+        }; 
+
+	</script>
+</html>

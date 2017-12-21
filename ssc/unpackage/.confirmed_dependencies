@@ -1,0 +1,168 @@
+{
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "guide.html",
+      "tab-webview-main.html"
+    ]
+  },
+  "tab-webview-subpage-about.html": {
+    "resources": [
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "tab-webview-subpage-setting.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "images/qihoo.png"
+    ],
+    "refer": [
+      "login.html",
+      "tab-webview-subpage-chat.html"
+    ]
+  },
+  "tab-webview-main.html": {
+    "resources": [
+      "tab-webview-subpage-about.html",
+      "fonts/designs/font-all/iconfont.ttf",
+      "fonts/designs/font-huangguan/iconfont.ttf",
+      "fonts/designs/font-huangguan/iconfont.css",
+      "js/mui.min.js",
+      "fonts/designs/font-all/iconfont.css",
+      "fonts/designs/font-size/iconfont.ttf",
+      "css/mui.css",
+      "fonts/designs/font-size/iconfont.css",
+      "fonts/mui.ttf",
+      "ssc-apps/index.html",
+      "ssc-apps/heads.html"
+    ],
+    "refer": [
+      "tab-webview-subpage-about.html",
+      "tab-webview-subpage-setting.html",
+      "tab-webview-subpage-contact.html",
+      "tab-webview-subpage-chat.html",
+      "ssc-apps/index.html",
+      "ssc-apps/alert.html",
+      "login.html",
+      "ssc-apps/heads.html"
+    ]
+  },
+  "tab-webview-subpage-contact.html": {
+    "resources": [
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "tab-webview-subpage-chat.html": {
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "ssc-apps/index.html": {
+    "resources": [
+      "ssc-apps/js/dropload.css",
+      "ssc-apps/css/common.css",
+      "ssc-apps/data/data.json",
+      "ssc-apps/js/dropload.min.js",
+      "ssc-apps/img/gos.png",
+      "ssc-apps/js/jquery-3.1.1.min.js",
+      "ssc-apps/css/mui.min.css",
+      "ssc-apps/fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "ssc-apps/alert.html": {
+    "resources": [
+      "ssc-apps/css/index.css",
+      "ssc-apps/js/click.js",
+      "ssc-apps/data/all_pian.json",
+      "ssc-apps/data/data_msg.json",
+      "ssc-apps/data/ssc_data.json",
+      "ssc-apps/js/mui.min.js",
+      "ssc-apps/img/msgs.png",
+      "ssc-apps/js/datashow.js",
+      "ssc-apps/js/jquery-3.1.1.min.js",
+      "ssc-apps/index.html",
+      "ssc-apps/js/clipboard.min.js"
+    ],
+    "refer": [
+      "ssc-apps/index.html"
+    ]
+  },
+  "main.html": {
+    "resources": [
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "login.html": {
+    "resources": [
+      "js/app.js",
+      "css/mui.min.css",
+      "js/mui.enterfocus.js",
+      "fonts/mui.ttf",
+      "images/sinaweibo.png",
+      "images/weixin.png",
+      "images/qq.png",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "main.html",
+      "tab-webview-main.html",
+      "reg.html",
+      "forget_password.html"
+    ]
+  },
+  "reg.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "forget_password.html": {
+    "resources": [
+      "css/style.css",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "guide.html": {
+    "resources": [
+      "images/1512382072060.png",
+      "images/5.png",
+      "images/f83891f669700d1897ae4e48fe0d963febc7cfe43f514-OTDigx_fw658.jpg",
+      "images/930db7bf7e4948a00ae5eef2cf006010a81597411ee7b-4qg5BF_fw658.jpg",
+      "images/5203b524f4134c8fafdff1050c7bcddf_th.jpg",
+      "images/20141106214924_GVSd3.jpg"
+    ],
+    "refer": [
+      "tab-webview-main.html"
+    ]
+  },
+  "ssc-apps/heads.html": {
+    "resources": [
+      "ssc-apps/js/jquery-3.1.1.min.js",
+      "ssc-apps/data/is.json",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "ssc-apps/img/guan.png",
+      "ssc-apps/img/ya.png",
+      "ssc-apps/img/ji.png"
+    ],
+    "refer": []
+  }
+}

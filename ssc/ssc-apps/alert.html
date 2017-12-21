@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>弹框</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, 
+		minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<!--<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>-->
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style type="text/css">
+			#msg{
+        width:70%;
+        position: fixed;
+        z-index:888;
+        top: 52%;
+        margin-left:-80%;
+        margin-top:-80px;
+        background:gainsboro;
+        box-shadow:5px 5px 8px #999;
+        font-size:14px;
+        color:#666;
+        border:1px solid #f8f8f8;
+        text-align: center;
+        line-height: 2rem;
+        display:inline-block;
+        border-radius:2px;
+        padding:20px 0 5px;
+    }
+ 
+    #msg_cont{
+        padding:10px 20px 20px;
+        text-align:center;
+        border-bottom: 1px solid gray;
+    }
+    #msg_clear{
+        color:#fff;
+        margin-top:5px;
+        /*padding:1px 15px 0px;*/
+        font-weight: bolder;
+        font-size: 18px;
+        border-radius:2px;
+        cursor:pointer;
+    }
+    #hides_li{
+    	width:100%;
+    	height:100%;
+    	background: gray;
+    	opacity: 0.9;
+        position: fixed;
+        top: 0;
+        z-index:777;
+    }
+   .btn_list{
+		border-radius: 5px;
+		color:#ffffff;
+		background-color: #FF9E57;
+		outline: none;
+		border:#FF9E57;
+		margin-left:30%;
+		width:146px;height:45px;
+		text-align: center;
+}
+		</style>
+	</head>
+	<body>
+<!--header start-->
+		<header class="headers">
+			<a id="index" style="position: fixed;top:0;left: 0;z-index: 33;text-decoration: none;">开奖记录</a>
+		    <h1 class="head_cent">A计划</h1>
+		    
+		    <a class="iconfont" id="dianjia">
+		    	<span>分类</span>
+		    	<span>
+		    		<img src="img/msgs.png"/>
+		    	</span>
+		    </a>
+		</header>
+<!--header  end-->
+		
+	<div id="centers">
+		<ul id="cent_mag">
+		
+		</ul>
+		
+	</div>	
+		
+<!--kongjian  start-->
+<div id="mengs">
+	<div id="hist_one" class="hidde mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<!--这里放置真实显示的DOM内容-->
+						<ul class="mui-table-view" id="hist_ul">
+					       
+					    </ul>
+				</div>
+	</div>
+	<div id="hist" class="hidde">
+		<button id="btns">取消</button>
+	</div>
+	<div id="shuju">
+		<h2 id="data_h1">A计划个位单双</h2>
+		<ul id="jutidata">
+			
+		</ul>
+		<input type="button" value="一键复制"  data-clipboard-action="copy" data-clipboard-target="#jutidata" class="btn_list">
+	</div>
+	<div id="hist_two" class="hidde">	
+	</div>
+</div>
+	<!--kongjian   end-->
+
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script type="text/javascript" src="js/datashow.js"></script>
+	<script>
+		function plusReady(){
+					// 设置系统状态栏背景为红色
+					plus.navigator.setStatusBarBackground('#555444');
+				}
+				if(window.plus){
+					plusReady();
+				}else{
+					document.addEventListener('plusready', plusReady, true);
+				}
+		mui.init({
+			tatusBarBackground: '#555444'
+		});
+		mui.plusReady(function () {
+			plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
+		    		mui('.mui-scroll-wrapper').scroll({
+						deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+					});		
+					
+					document.getElementById("index").addEventListener('tap',function () {
+			mui.openWindow({
+			    url:"index.html",
+			    id: "index",
+			    styles: {
+		        top:0, //新页面顶部位置
+		        bottom:0, //新页面底部位置
+		    },
+		    show: {
+		        autoShow: true, //页面loaded事件发生后自动显示，默认为true
+		    },
+		    waiting: {
+		        autoShow: true, //自动显示等待框，默认为true
+		        title: '正在加载...' //等待对话框上显示的提示内容
+		      
+		    }
+		})
+		})
+
+		})
+		
+		
+//		$(".headers").on('click',function(){
+//
+//		
+//			alert("请登录后再查看")
+//	      function alert(e){
+//      $("body").append('<div id="hides_li"></div><div id="msg"><div id="msg_cont">'+e+'</div><div class="msg_close" id="msg_clear">确定</div></div>');
+//      $("body").css({"overflow":"hidden"})
+//      $("body").bind("touchmove",function(ev){
+//      	ev.preventDefault();
+//      })
+//      $(".msg_close").click(function (){
+//          $("#hides_li").remove();
+//          $("#msg").remove();
+//          $("body").unbind("touchmove")
+//      })
+//  }
+//			
+//		})
+		</script>
+	
+	</body>
+</html>

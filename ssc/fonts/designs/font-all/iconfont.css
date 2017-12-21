@@ -1,0 +1,19 @@
+
+
+@font-face {font-family: "Muiicons";
+ 			font-weight: normal;
+    		font-style : normal;
+ 			src        : url('iconfont.ttf') format('truetype');
+ 		/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+
+}
+
+.mui-icon {
+  font-family:"Muiicons" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.mui-icon-category:before { content: "\e699"; }
+
